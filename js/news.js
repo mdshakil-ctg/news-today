@@ -9,28 +9,37 @@ const displayCatagories = async() =>{
     const categories = await loadNewsCatagories();
     const arrayOfCatagories = categories.data.news_category;
     const newsCatagories= document.getElementById('news-catagories');
+    
     arrayOfCatagories.forEach(element => {
         // console.log(element);
+
         const {category_id, category_name} = element;
         const div = document.createElement('div');
         div.innerHTML =`
-        <h6 onclick="getDetailNews('${category_id}')">${category_name}</h6>
+        <h6 onclick="getDetailNews('${category_id}','${category_name}')">${category_name}</h6>
         `;
         newsCatagories.appendChild(div);
+        
     });
+    
 }
 displayCatagories();
 
-const getDetailNews= async(id) =>{
+const getDetailNews= async(id,name) =>{
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayDetailNews(data);
+    displayDetailNews(data,name);
 }
 
-function displayDetailNews(data){
-    // console.log(data);
+function displayDetailNews(data,name){
+    console.log(data,name)
     const newsDetail = data.data;
+    // console.log(newsDetail.length);
+    const countCatagories = document.getElementById('count-catagories');
+    countCatagories.innerHTML = `
+    <h6 class ="p-3 border border-1 bg-light">${newsDetail.length} items found for Category ${name}</h6>
+    `
     newsDetail.sort((a, b) =>{
         return b.total_view - a.total_view;
     })
