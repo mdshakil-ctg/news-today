@@ -5,7 +5,7 @@ const loadNewsCatagories = async() =>{
     return data;
 }
 loadNewsCatagories();
-const getCatagories = async() =>{
+const displayCatagories = async() =>{
     const categories = await loadNewsCatagories();
     const arrayOfCatagories = categories.data.news_category;
     const newsCatagories= document.getElementById('news-catagories');
@@ -19,7 +19,7 @@ const getCatagories = async() =>{
         newsCatagories.appendChild(div);
     });
 }
-getCatagories();
+displayCatagories();
 
 const getDetailNews= async(id) =>{
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
@@ -29,7 +29,7 @@ const getDetailNews= async(id) =>{
 }
 
 function displayDetailNews(data){
-
+    // console.log(data);
     const newsDetail = data.data;
     newsDetail.sort((a, b) =>{
         return b.total_view - a.total_view;
@@ -38,7 +38,7 @@ function displayDetailNews(data){
     const newsField = document.getElementById('news-details');
     newsField.textContent = "";
     newsDetail.forEach(element =>{
-        console.log(element);
+        // console.log(element);
 
         const div = document.createElement('div');
         div.classList.add('card');
@@ -58,13 +58,15 @@ function displayDetailNews(data){
               <div><img class="author-img" src="${element.author.img}" alt=""></div>
               <div>
                 <h6>${element.author.name}</h6>
-                <p>${element.author.published_date ? element.author.published_date.slice(0,10) : "the information is imcomplete"}</p>
+                <p>${element.author.published_date ? element.author.published_date.slice(0,10) : "the information is not available"}</p>
               </div>
             </div>
             <div>
               <p>${element.total_view}K</p>
             </div>
-            <div><button class="btn btn-warning">View Details</button></div>
+            <div><button onclick="newsDetails('${element._id}')" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#news-modal">
+            View Details
+            </button></div>
            </div>
             </div>
           </div>
@@ -72,6 +74,34 @@ function displayDetailNews(data){
         </div>
         `;
         newsField.appendChild(div);
+    })
+}
+const newsDetails = async(id) => {
+    const url = `https://openapi.programming-hero.com/api/news/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displaySingleNews(data);
+}
+
+function displaySingleNews (data){
+    const singleNews = data.data;
+    const modalContainer = document.getElementById('news-modal-details');
+    modalContainer.textContent="";
+    singleNews.forEach(element =>{
+        console.log(element);
+
+        const div = document.createElement('div');
+        div.classList.add('card');
+
+        div.innerHTML = `
+        <img src="${element.thumbnail_url}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">${element.title}</h5>
+          <p class="card-text">${element.details + '...'}</p>
+        
+        </div>
+        `;
+        modalContainer.appendChild(div);
     })
 }
 
