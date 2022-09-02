@@ -42,17 +42,17 @@ function displayDetailNews(data){
 
         const div = document.createElement('div');
         div.classList.add('card');
-        div.classList.add('mb-3');
+        div.classList.add('mb-5');
         div.innerHTML = `
         <div class="row g-0">
         <div class="col-md-4">
-          <img src="${element.image_url}" class="img-fluid rounded-start" alt="...">
+          <img src="${element.image_url}" class="img-fluid h-100 rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${element.title}</h5>
             <p class="card-text">${element.details.length > 150 ? element.details.slice(0,150)+ "..." + "<br>" + "<br>" + element.details.slice(150,250) + "..."  : element.details}</p>
-            <div class="card-footer">
+            <div>
             <div class="d-flex justify-content-between">
             <div class="d-flex gap-3">
               <div><img class="author-img" src="${element.author.img}" alt=""></div>
@@ -64,7 +64,7 @@ function displayDetailNews(data){
             <div>
               <p>${element.total_view}K</p>
             </div>
-            <button class="btn btn-warning">click me</button>
+            <div><button class="btn btn-warning">View Details</button></div>
            </div>
             </div>
           </div>
