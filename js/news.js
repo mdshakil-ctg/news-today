@@ -47,7 +47,6 @@ const getDetailNews= async(id,name) =>{
 function displayDetailNews(data,name){
 
     const newsDetail = data.data;
-    // console.log(newsDetail.length);
     const countCatagories = document.getElementById('count-catagories');
     countCatagories.innerHTML = `
     <h6 class ="p-3 border border-1 bg-light mb-4">${newsDetail.length} items found for Category ${name}</h6>
@@ -71,7 +70,7 @@ function displayDetailNews(data,name){
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${element.title ? element.title : "no data available"}</h5>
-            <p class="card-text">${element.details.length > 150 ? element.details.slice(0,150)+ "..." + "<br>" + "<br>" + element.details.slice(150,250) + "..."  : element.details}</p>
+            <p class="card-text">${element.details.length > 150 ? element.details.slice(0,150) +  "<br>" + "<br>" + element.details.slice(150,250) + "..."  : element.details}</p>
             <div>
             <div class="d-flex flex-wrap flex-lg-nowrap justify-content-between">
             <div class="d-flex gap-2">
@@ -82,7 +81,7 @@ function displayDetailNews(data,name){
               </div>
             </div>
             <div class="d-flex align-items-center">
-              <p>${element.total_view ? element.total_view + 'K' : "no data available"}</p>
+              <p><i class="fa-sharp fa-solid fa-eye me-2"></i>${element.total_view ? element.total_view + 'K' : "no data available"}</p>
             </div>
             <div id="modal-button"><button onclick="newsDetails('${element._id}')"  class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#news-modal">
             View Details
@@ -123,7 +122,7 @@ function displaySingleNews (data){
         <img src="${element.thumbnail_url}" class="card-img-top" alt="...">
         <div class="card-body">
           <h5 class="card-title">${element.title}</h5>
-          <p class="card-text">${element.details + '...'}</p>
+          <p class="card-text">${element.details}</p>
         </div>
         `;
         modalContainer.appendChild(div);
@@ -141,5 +140,3 @@ const toggleSpinner = (spin) => {
       spinner.classList.add('d-none');
   }
 }
-
-// displayDetailNews();
