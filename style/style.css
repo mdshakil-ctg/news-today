@@ -11,3 +11,33 @@
     height: 50px;
     border-radius: 50%;
 }
+#news-modal-details{
+    height: 90vh;
+    overflow: scroll;
+    border: none;
+}
+#news-modal-details img{
+    height: 50vh;
+    padding: 6px;
+    border: none;
+}
+@media screen and (max-width:500px) {
+    
+    #modal-button{
+        width: 100%;
+        margin-top: 10px;
+    }
+    #modal-button>button{
+        width: 100%;
+    }
+}
+@media screen and (max-width:900px) {
+    
+    #modal-button{
+        width: 100%;
+        margin-top: 10px;
+    }
+    #modal-button>button{
+        width: 100%;
+    }
+}
